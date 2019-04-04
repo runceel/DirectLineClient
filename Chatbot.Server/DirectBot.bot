@@ -1,0 +1,24 @@
+{
+    "name": "DirectBot",
+    "description": "",
+    "services": [
+        {
+            "type": "endpoint",
+            "name": "development",
+            "appId": "",
+            "appPassword": "",
+            "endpoint": "http://localhost:4082/api/messages",
+            "id": "155"
+        },
+        {
+            "type": "endpoint",
+            "name": "production",
+            "appId": "",
+            "appPassword": "",
+            "endpoint": "http://localhost:4082/api/messages",
+            "id": "135"
+        }
+    ],
+    "padlock": "",
+    "version": "2.0"
+}
