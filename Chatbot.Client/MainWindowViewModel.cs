@@ -8,11 +8,11 @@ namespace Chatbot.Client
 {
     public class MainWindowViewModel : ObservableObject
     {
-        private readonly IConfiguration _configuration;
+        private readonly Bot _bot;
 
-        public MainWindowViewModel(IConfiguration configuration)
+        public MainWindowViewModel(Bot bot)
         {
-            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            _bot = bot ?? throw new ArgumentNullException(nameof(bot));
         }
     }
 }

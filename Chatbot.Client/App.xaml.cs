@@ -24,8 +24,10 @@ namespace Chatbot.Client
                 .AddJsonFile("appsettings.debug.json", optional: true)
                 .Build();
 
+            var bot = new Bot();
             SimpleIoc.Default.Register(() => configuration);
             SimpleIoc.Default.Register<MainWindowViewModel>();
+            SimpleIoc.Default.Register(() => bot);
         }
     }
 }
