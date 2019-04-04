@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.28729.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatbot.Client", "Chatbot.Client\Chatbot.Client.csproj", "{FF8F2CDD-25BF-4266-8185-16F88FE687E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatbot.Server", "Chatbot.Server\Chatbot.Server.csproj", "{62BDE0F6-F2D9-4FD7-89C6-21FFE754ACC7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{FF8F2CDD-25BF-4266-8185-16F88FE687E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF8F2CDD-25BF-4266-8185-16F88FE687E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF8F2CDD-25BF-4266-8185-16F88FE687E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62BDE0F6-F2D9-4FD7-89C6-21FFE754ACC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62BDE0F6-F2D9-4FD7-89C6-21FFE754ACC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62BDE0F6-F2D9-4FD7-89C6-21FFE754ACC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62BDE0F6-F2D9-4FD7-89C6-21FFE754ACC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
