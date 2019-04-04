@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -19,12 +20,12 @@ namespace Chatbot.Client
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             var configuration = new ConfigurationBuilder()
-                .SetBasePath(Assembly.GetExecutingAssembly().Location)
+                .SetBasePath(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))
                 .AddJsonFile("appsettings.json")
                 .AddJsonFile("appsettings.debug.json", optional: true)
                 .Build();
 
-            var bot = new Bot();
+            var bot = new Bot(configuration);
             SimpleIoc.Default.Register(() => configuration);
             SimpleIoc.Default.Register<MainWindowViewModel>();
             SimpleIoc.Default.Register(() => bot);
