@@ -339,3 +339,4 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 /Chatbot.Client/appsettings.debug.json
+/Chatbot.Client.UWP/appsettings.debug.json

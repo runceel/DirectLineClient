@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿using Chatbot.Client.Core;
+using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -19,16 +20,7 @@ namespace Chatbot.Client
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))
-                .AddJsonFile("appsettings.json")
-                .AddJsonFile("appsettings.debug.json", optional: true)
-                .Build();
-
-            var bot = new Bot(configuration);
-            SimpleIoc.Default.Register(() => configuration);
-            SimpleIoc.Default.Register<MainWindowViewModel>();
-            SimpleIoc.Default.Register(() => bot);
+            ViewModelLocator.Initialize(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Chatbot.Client
+namespace Chatbot.Client.Core
 {
     public class DirectLineSettings
     {

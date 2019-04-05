@@ -6,26 +6,29 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive.Concurrency;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Chatbot.Client
+namespace Chatbot.Client.Core
 {
     public class Bot
     {
         private readonly DirectLineSettings _directLineSettings = new DirectLineSettings();
         private readonly DirectLineClient _directLineClient;
+        private readonly IScheduler _schedulerForCollection;
         private CancellationTokenSource _cancellationTokenSource;
 
         private Conversation _conversation;
 
         public ObservableCollection<Message> Messages { get; } = new ObservableCollection<Message>();
 
-        public Bot(IConfiguration configuration)
+        public Bot(IConfiguration configuration, IScheduler schedulerForCollection)
         {
             configuration.Bind("DirectLine", _directLineSettings);
             _directLineClient = new DirectLineClient(_directLineSettings.Key);
+            _schedulerForCollection = schedulerForCollection ?? throw new ArgumentNullException(nameof(schedulerForCollection));
         }
 
         public void Stop()
@@ -36,17 +39,20 @@ namespace Chatbot.Client
         public async Task SendActivityAsync(string text)
         {
             await CreateConversationIfNotExistAsync();
+            _schedulerForCollection.Schedule(() =>
+            {
+                Messages.Add(new Message
+                {
+                    MessageFrom = MessageFrom.User,
+                    Text = text,
+                });
+            });
+
             await _directLineClient.Conversations.PostActivityAsync(_conversation.ConversationId, new Activity
             {
                 From = new ChannelAccount("User"),
                 Text = text,
                 Type = ActivityTypes.Message,
-            });
-
-            Messages.Add(new Message
-            {
-                MessageFrom = MessageFrom.User,
-                Text = text,
             });
         }
 
@@ -73,11 +79,14 @@ namespace Chatbot.Client
                 foreach (var message in botMessages)
                 {
                     System.Diagnostics.Debug.WriteLine($"{message.Text} received.");
-                    Messages.Add(new Message
+                    _schedulerForCollection.Schedule(() =>
                     {
-                        MessageFrom = MessageFrom.Bot,
-                        Text = message.Text,
-                        Attachments = ConvertAttachmentsToAdaptiveCard(message.Attachments),
+                        Messages.Add(new Message
+                        {
+                            MessageFrom = MessageFrom.Bot,
+                            Text = message.Text,
+                            Attachments = ConvertAttachmentsToAdaptiveCard(message.Attachments),
+                        });
                     });
                 }
 

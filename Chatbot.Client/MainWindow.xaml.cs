@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Chatbot.Client.Core;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -27,11 +28,6 @@ namespace Chatbot.Client
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void ButtonExit_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
         }
 
         private void TextBoxInput_PreviewKeyDown(object sender, KeyEventArgs e)
