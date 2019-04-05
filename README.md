@@ -5,8 +5,7 @@
 - SignIn to Azure portal
 - Create a Web Apps and a Bot Channels Registration
 - Add DirectLine channel to the Bot Channels Registration, and copy the key.
-- Create a DirectBot.bot file to the Chatbot.Server project
-- Edit it like following:
+- Edit a DirectBot.bot file at the Chatbot.Server project like below:
 
 ```json
 {
