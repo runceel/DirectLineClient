@@ -3,7 +3,8 @@
 ## Create a bot
 
 - SignIn to Azure portal
-- Create a Web Apps and a Bot Channels Registrations
+- Create a Web Apps and a Bot Channels Registration
+- Add DirectLine channel to the Bot Channels Registration, and copy the key.
 - Create a DirectBot.bot file to the Chatbot.Server project
 - Edit it like following:
 
@@ -36,4 +37,39 @@
 
 - Deploy Chatbot.Server project to Azure Web Apps you created.
 
-## 
+## WPF
+
+The WPF app is created on .NET Core 3.0. You have to use Visual Studio 2019 and preview version .NET Core 3.0.
+
+- Edit appsettings.json like below:
+
+```json
+{
+  "DirectLine": {
+    "BotId": "yourbotname",
+    "Key": "Key of DirectLine channel"
+  }
+}
+```
+
+- Run the app
+
+## UWP
+
+- Edit appsettings.json like below:
+
+```json
+{
+  "DirectLine": {
+    "BotId": "yourbotname",
+    "Key": "Key of DirectLine channel"
+  }
+}
+```
+
+- Run the app
+
+
+## Screenshots
+
+![Screenshot](./images/screenshot.jpg)
