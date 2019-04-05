@@ -26,6 +26,20 @@ namespace Chatbot.Client
             }
         }
 
+        private bool _isSendingMessage;
+
+        private bool IsSendingMessage
+        {
+            get => _isSendingMessage;
+            set
+            {
+                if (Set(ref _isSendingMessage, value))
+                {
+                    SendMessageCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
         private RelayCommand _sendMessageCommand;
         public RelayCommand SendMessageCommand => _sendMessageCommand ??
             (_sendMessageCommand = new RelayCommand(SendMessageExecute, SendMessageCanExecute));
@@ -34,11 +48,24 @@ namespace Chatbot.Client
 
         private async void SendMessageExecute()
         {
-            await _bot.SendActivityAsync(InputText);
-            InputText = "";
+            IsSendingMessage = true;
+            try
+            {
+                await _bot.SendActivityAsync(InputText);
+                InputText = "";
+            }
+            finally
+            {
+                IsSendingMessage = false;
+            }
         }
 
-        private bool SendMessageCanExecute() => !string.IsNullOrWhiteSpace(InputText);
+        private bool SendMessageCanExecute() => !string.IsNullOrWhiteSpace(InputText) && !IsSendingMessage;
+
+        public void Closed()
+        {
+            _bot.Stop();
+        }
 
         public MainWindowViewModel(Bot bot)
         {

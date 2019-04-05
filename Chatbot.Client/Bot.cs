@@ -59,7 +59,7 @@ namespace Chatbot.Client
 
             _cancellationTokenSource = new CancellationTokenSource();
             _conversation = await _directLineClient.Conversations.StartConversationAsync(_cancellationTokenSource.Token);
-            var ignore = ReadBotMessageAsync(_cancellationTokenSource.Token);
+            var ignore = Task.Run(async () => await ReadBotMessageAsync(_cancellationTokenSource.Token));
         }
 
         private async Task ReadBotMessageAsync(CancellationToken cancellationToken)

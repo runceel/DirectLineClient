@@ -9,6 +9,7 @@
     Title="DirectLine client"
     Width="800"
     Height="450"
+    Closed="Window_Closed"
     DataContext="{x:Static local:ViewModelLocator.MainWindowViewModel}"
     mc:Ignorable="d">
     <Window.Resources>
@@ -16,27 +17,18 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <TextBox Text="{Binding InputText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <Button
-                Grid.Column="1"
-                Command="{Binding SendMessageCommand}"
-                Content="Send" />
-        </Grid>
-
-        <ListBox Grid.Row="1" ItemsSource="{Binding Messages}">
+        <ListBox
+            x:Name="listBoxMessages"
+            ItemsSource="{Binding Messages}"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="{x:Type local:Message}">
                     <Grid>
-                        <TextBlock>
+                        <TextBlock TextWrapping="Wrap">
                             <Run Text="{Binding MessageFrom}" />
                             <Run Text=": " />
                             <Run Text="{Binding Text}" />
@@ -52,5 +44,19 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBox PreviewKeyDown="TextBoxInput_PreviewKeyDown" Text="{Binding InputText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <Button
+                Grid.Column="1"
+                MinWidth="75"
+                Margin="5,0"
+                Command="{Binding SendMessageCommand}"
+                Content="Send" />
+        </Grid>
     </Grid>
 </Window>
